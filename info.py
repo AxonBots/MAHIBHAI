@@ -31,12 +31,10 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'My_Tg_files')
 
 #===================================================================================================================================
 
-DATABASE_URI_MAIN = environ.get("MONGODB_URI_MAIN", "")
-DATABASE_NAME_MAIN = environ.get("DATABASE_NAME_MAIN", "SkarletV5Main")
-
-
-DATABASE_URI_FILES = environ.get("MONGODB_URI_FILES", "")
-DATABASE_NAME_FILES = environ.get("DATABASE_NAME_FILES", "SkarletV5Files")
+DATABASE_URI = "mongodb://your_existing_uri"  # Ye baaki sab ke liye
+FILE_DATABASE_URI = "mongodb://your_file_uri"  # Ye sirf files ke liye
+DATABASE_NAME = "admin_database"  # Existing database name
+FILE_DATABASE_NAME = "file_database"
 
 
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
