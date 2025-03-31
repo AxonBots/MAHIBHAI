@@ -31,8 +31,8 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'My_Tg_files')
 
 #===================================================================================================================================
 
-DATABASE_URI = "mongodb://your_existing_uri"  # Ye baaki sab ke liye
-FILE_DATABASE_URI = "mongodb://your_file_uri"  # Ye sirf files ke liye
+DATABASE_URI = "mongodb+srv://ASDFG:SDFGH@cluster0.pxdip3h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # Ye baaki sab ke liye
+FILE_DATABASE_URI = "mongodb+srv://CVBH:FSGDHJ@cluster0.uws7fat.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # Ye sirf files ke liye
 DATABASE_NAME = "admin_database"  # Existing database name
 FILE_DATABASE_NAME = "file_database"
 
