@@ -1,4 +1,4 @@
-
+# bot.py
 import sys
 import glob
 import importlib
@@ -7,7 +7,7 @@ from pyrogram import idle
 import logging
 import logging.config
 
-# Get logging configurations
+# Logging setup
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
@@ -19,7 +19,6 @@ logging.basicConfig(
 logging.getLogger("aiohttp").setLevel(logging.ERROR)
 logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
-
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
@@ -28,14 +27,13 @@ from info import *
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
-from Script import script 
-from datetime import date, datetime 
+from Script import script
+from datetime import date, datetime
 import pytz
 from aiohttp import web
 from plugins import web_server
 
 import asyncio
-from pyrogram import idle
 from Jisshu.bot import JisshuBot
 from Jisshu.util.keepalive import ping_server
 from Jisshu.bot.clients import initialize_clients
@@ -45,10 +43,9 @@ files = glob.glob(ppath)
 JisshuBot.start()
 loop = asyncio.get_event_loop()
 
-
 async def Jisshu_start():
     print('\n')
-    print('Initalizing The Movie Provider Bot')
+    print('Initializing The Movie Provider Bot')
     bot_info = await JisshuBot.get_me()
     JisshuBot.username = bot_info.username
     await initialize_clients()
@@ -86,7 +83,6 @@ async def Jisshu_start():
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, PORT).start()
     await idle()
-
 
 if __name__ == '__main__':
     try:
