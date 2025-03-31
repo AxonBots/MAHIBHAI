@@ -75,23 +75,19 @@ class script(object):
 </b>"""
         
     
-    STATUS_TXT = """<b>
-<blockquote>🗄️ ᴅᴀᴛᴀʙᴀꜱᴇ 𝟣 🗄️ </blockquote>
-
-» ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ - <code>{}</code>
-» ᴛᴏᴛᴀʟ ɢʀᴏᴜᴘꜱ - <code>{}</code>
-» ᴜꜱᴇᴅ ꜱᴛᴏʀᴀɢᴇ - <code>{} / {}</code>
-
-<blockquote>🗳 ᴅᴀᴛᴀʙᴀsᴇ 2 🗳</blockquote>
-
-» ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ - <code>{}</code>
-» ᴜꜱᴇᴅ ꜱᴛᴏʀᴀɢᴇ - <code>{} / {}</code>
-
-<blockquote>🤖 ʙᴏᴛ ᴅᴇᴛᴀɪʟs 🤖</blockquote>
-
-» ᴜᴘᴛɪᴍᴇ - <code>{}</code>
-» ʀᴀᴍ - <code>{}%</code>
-» ᴄᴘᴜ - <code>{}%</code></b>"""
+    # Script.py
+    STATUS_TXT = (
+    "👤 Users: {}\n"
+    "👥 Groups: {}\n"
+    "📦 Main DB Size: {}\n"
+    "🆓 Main DB Free: {}\n"
+    "📂 Total Files: {}\n"
+    "📦 File DB Size: {}\n"
+    "🆓 File DB Free: {}\n"
+    "⏳ Uptime: {}\n"
+    "💾 RAM: {}%\n"
+    "⚙️ CPU: {}%"
+)
 
     NEW_USER_TXT = """<b>#New_User {}
 
