@@ -2,6 +2,7 @@
 import sys
 import glob
 import importlib
+import signal
 from pathlib import Path
 from pyrogram import idle
 import logging
@@ -43,11 +44,42 @@ files = glob.glob(ppath)
 JisshuBot.start()
 loop = asyncio.get_event_loop()
 
+# Graceful shutdown handler
+async def shutdown(signal, loop):
+    logging.info(f"⚠️ Received {signal.name}, shutting down gracefully...")
+    try:
+        await JisshuBot.stop()
+        # Add any other cleanup here
+    except Exception as e:
+        logging.error(f"Error during shutdown: {e}")
+    finally:
+        loop.stop()
+
+# Keep-alive task for Koyeb
+async def keep_alive():
+    while True:
+        logging.info("🤖 Keep-alive: Bot is active...")
+        await asyncio.sleep(300)  # Ping every 5 minutes
+
+# Signal handler setup
+def register_signal_handlers():
+    for sig in (signal.SIGTERM, signal.SIGINT):
+        loop.add_signal_handler(
+            sig,
+            lambda s=sig: asyncio.create_task(shutdown(s, loop)))
+
 async def Jisshu_start():
     print('\n')
     print('Initializing The Movie Provider Bot')
     bot_info = await JisshuBot.get_me()
     JisshuBot.username = bot_info.username
+    
+    # Register signal handlers
+    register_signal_handlers()
+    
+    # Start keep-alive task
+    asyncio.create_task(keep_alive())
+    
     await initialize_clients()
     for name in files:
         with open(name) as a:
@@ -60,8 +92,10 @@ async def Jisshu_start():
             spec.loader.exec_module(load)
             sys.modules["plugins." + plugin_name] = load
             print("The Movie Provider Imported => " + plugin_name)
+    
     if ON_HEROKU:
         asyncio.create_task(ping_server())
+    
     b_users, b_chats = await db.get_banned()
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
@@ -73,11 +107,13 @@ async def Jisshu_start():
     JisshuBot.username = '@' + me.username
     logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
     logging.info(script.LOGO)
+    
     tz = pytz.timezone('Asia/Kolkata')
     today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
     await JisshuBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(me.mention, today, time))
+    
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
@@ -89,3 +125,7 @@ if __name__ == '__main__':
         loop.run_until_complete(Jisshu_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
+    except Exception as e:
+        logging.error(f"Bot crashed with error: {e}")
+    finally:
+        logging.info("🛑 Bot has stopped completely")
